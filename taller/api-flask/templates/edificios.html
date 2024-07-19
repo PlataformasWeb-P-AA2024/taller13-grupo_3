@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>Edificios</title>
-  </head>
-  <body>
-    <h5>Listado de edificios - {{numero_edificios}}</h5>
+{% extends "base.html" %}
 
-    {% for e in edificios %}
+{% block title %}Listado de Edificios{% endblock %}
 
-    <ol>
-      <li><b>Ciudad: </b>{{e['ciudad']}}</li>
-      <li><b>Dirección: </b>{{e['direccion']}}</li>
-      <li><b>Nombre de edificio: </b>{{e['nombre']}}</li>
-      <li><b>Tipo de edificio: </b>{{e['comercial']}}</li>
-    </ol>
-    <hr>
-    {% endfor%}
-  </body>
-</html>
+{% block content %}
+    <h2>Listado de Edificios - {{ numero_edificios }}</h2>
+    <ul>
+        {% for e in edificios %}
+            <li><b>Nombre:</b> {{ e.nombre }}</li>
+            <li><b>Dirección:</b> {{ e.direccion }}</li>
+            <li><b>Ciudad:</b> {{ e.ciudad }}</li>
+            <li><b>Tipo:</b> {{ e.tipo }}</li>
+            <hr>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{% block title %}Flask App{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/obteneredificios">Listar Edificios</a></li>
+            <li><a href="/departamentos">Listar Departamentos</a></li>
+            <li><a href="/nuevo_edificio">Crear Nuevo Edificio</a></li>
+        </ul>
+    </nav>
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

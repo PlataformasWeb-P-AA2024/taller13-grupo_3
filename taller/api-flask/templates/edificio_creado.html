@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}Edificio Creado{% endblock %}
+
+{% block content %}
+    <h2>Edificio Creado</h2>
+    <p><b>ID:</b> {{ edificio.id }}</p>
+    <p><b>Nombre:</b> {{ edificio.nombre }}</p>
+    <p><b>Dirección:</b> {{ edificio.direccion }}</p>
+    <p><b>Ciudad:</b> {{ edificio.ciudad }}</p>
+    <p><b>Tipo:</b> {{ edificio.tipo }}</p>
+    <a href="/nuevo_edificio">Crear otro edificio</a>
+{% endblock %}
