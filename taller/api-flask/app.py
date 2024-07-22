@@ -5,12 +5,12 @@ import json
 app = Flask(__name__)
 
 API_URL = "http://127.0.0.1:8000/api/"
-AUTH = ('uuunin', 'qwerty')  # Reemplaza con tus credenciales
+AUTH = ('admin', 'qwerty')  # Reemplaza con tus credenciales
 
 
 @app.route('/obteneredificios')
 def listar_edificios():
-    response = requests.get(f"{API_URL}edificios/")
+    response = requests.get(f"{API_URL}edificios/", auth=AUTH)
     return render_template('edificios.html', edificios=response.json(), numero_edificios=len(response.json()))
 
 
