@@ -1,1 +1,36 @@
 pip install django-cors-headers djangorestframework django-allauth
+
+
+
+
+{% extends "base.html" %}
+
+{% block title %}Listado de Edificios{% endblock %}
+
+{% block content %}
+    <h2>Listado de Edificios - {{ numero_edificios }}</h2>
+    <ul>
+        {% for e in edificios %}
+            <li><b>Nombre:</b> {{ e.nombre }}</li>
+            <li><b>Dirección:</b> {{ e.direccion }}</li>
+            <li><b>Ciudad:</b> {{ e.ciudad }}</li>
+            <li><b>Tipo:</b> {{ e.tipo }}</li>
+            <form action="{{ url_for('eliminar_edificio', id=e.id) }}" method="post" style="display:inline;">
+                <button type="submit">Eliminar</button>
+            </form>
+            <hr>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+
+
+
+@app.route('/eliminar_edificio/<int:id>', methods=['POST'])
+def eliminar_edificio(id):
+    response = requests.delete(f"{API_URL}edificios/{id}/", auth=AUTH)
+    if response.status_code == 204:
+        return redirect(url_for('listar_edificios'))
+    else:
+        return jsonify({'mensaje': 'Error al eliminar el edificio.'}), response.status_code
+
