@@ -34,3 +34,56 @@ def eliminar_edificio(id):
     else:
         return jsonify({'mensaje': 'Error al eliminar el edificio.'}), response.status_code
 
+
+@app.route('/editar_edificio/<int:id>', methods=['GET'])
+def editar_edificio(id):
+    response = requests.get(f"{API_URL}edificios/{id}/", auth=AUTH)
+    if response.status_code == 200:
+        edificio = response.json()
+        return render_template('editar_edificio.html', edificio=edificio)
+    else:
+        return render_template('error.html',
+                               mensaje='Error al obtener los detalles del edificio.'), response.status_code
+
+
+@app.route('/editar_edificio/<int:id>', methods=['POST'])
+def actualizar_edificio(id):
+    data = {
+        'nombre': request.form['nombre'],
+        'direccion': request.form['direccion'],
+        'ciudad': request.form['ciudad'],
+        'tipo': request.form['tipo']
+    }
+    response = requests.put(f"{API_URL}edificios/{id}/", json=data, auth=AUTH)
+    if response.status_code == 200:
+        return redirect(url_for('listar_edificios'))
+    else:
+        return render_template('error.html', mensaje='Error al actualizar el edificio.'), response.status_code
+
+
+
+
+{% extends "base.html" %}
+
+{% block title %}Editar Edificio{% endblock %}
+
+{% block content %}
+    <h2>Editar Edificio</h2>
+    <form action="{{ url_for('actualizar_edificio', id=edificio.id) }}" method="post">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{{ edificio.nombre }}" required>
+        <br>
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" value="{{ edificio.direccion }}" required>
+        <br>
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" name="ciudad" value="{{ edificio.ciudad }}" required>
+        <br>
+        <label for="tipo">Tipo:</label>
+        <input type="text" id="tipo" name="tipo" value="{{ edificio.tipo }}" required>
+        <br>
+        <button type="submit">Actualizar</button>
+    </form>
+{% endblock %}
+
+
